@@ -6,6 +6,7 @@ import React from "react";
   import AuthProvider from "./authContext";
   import PrivateRoute from "./privateRoute";
   import AuthHeader from "./authHeader";
+  import SignUpPage from "./signUpPage";
 
   const App = () => {
     return (
@@ -27,6 +28,7 @@ import React from "react";
             </li>
           </ul>
           <Switch>
+            <Route path="/signup" component={SignUpPage} />
             <Route path="/public" component={PublicPage} />
             <Route exact path="/" component={HomePage} />
             <Route path="/login" component={LoginPage} />
