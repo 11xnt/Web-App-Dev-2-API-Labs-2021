@@ -50,7 +50,7 @@ router.put('/:id', async (req, res) => {
     if (result.matchedCount) {
         res.status(200).json({ code:200, msg: 'User Updated Successfully' });
     } else {
-        res.status(401).json({ code: 401, msg: 'Unable to Update User' });
+        res.status(404).json({ code: 404, msg: 'Unable to Update User' });
     }
 });
 
@@ -60,13 +60,9 @@ router.post('/:userName/favourites', asyncHandler(async (req, res) => {
     const userName = req.params.userName;
     const movie = await movieModel.findByMovieDBId(newFavourite);
     const user = await User.findByUserName(userName);
-    if(!user.favourites.includes(movie._id)){
-        await user.favourites.push(movie);
-    } else {
-        res.status(402).json({ code: 402, msg: 'Movie already in favourites' });
-    }
+    await user.favourites.push(movie._id);
     await user.save();
-       res.status(201).json(user);
+    res.status(201).json(user);
 }));
 
 router.get('/:userName/favourites', asyncHandler( async (req, res) => {
